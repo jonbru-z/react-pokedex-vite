@@ -6,6 +6,10 @@ import { ListPage } from "./pages/list/ListPage";
 import "./styles/global.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ProfilePage } from "./pages/profile/ProfilePage";
+import { useState } from "react";
+import { PokeVisitContext } from "./state/PokeVisitContext";
+import { UserContext } from "./state/UserContext";
+import { usePokeVisit } from "./hooks/usePokeVisit/usePokeVisit";
 
 const queryClient = new QueryClient();
 
@@ -30,11 +34,25 @@ const router = createBrowserRouter([
   },
 ]);
 
+
 function App() {
+  const [username, setUsername] = useState("");
+
+  const pokeVisit = usePokeVisit();
+  
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <PokeVisitContext.Provider value={pokeVisit}>
+      <UserContext.Provider
+        value={{
+          username,
+          setUsername,
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </UserContext.Provider>
+    </PokeVisitContext.Provider>
   );
 }
 
