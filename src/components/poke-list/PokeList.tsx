@@ -1,13 +1,11 @@
 import { PokeListEntry } from "../poke-list-entry/PokeListEntry";
 import styles from "./PokeList.module.scss";
 
-const pokemons = [
-  { name: "Bulbasaur" },
-  { name: "Eevee" },
-  { name: "Pickachu" },
-];
+interface Props {
+  pokemons: { name: string }[];
+}
 
-export function PokeList() {
+export function PokeList({ pokemons }: Props) {
   return (
     <div className={styles.root}>
       <ul>

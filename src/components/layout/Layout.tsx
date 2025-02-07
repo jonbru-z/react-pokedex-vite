@@ -1,19 +1,19 @@
-import { PropsWithChildren } from "react";
-import styles from "./Layout.module.scss";
+import { Link, Outlet } from "react-router";
 import { Profile } from "../profile/Profile";
+import styles from "./Layout.module.scss";
 
-type LayoutProps = PropsWithChildren;
-
-export function Layout({ children }: LayoutProps) {
+export function Layout() {
   return (
     <div className={styles.root}>
       <header>
         <nav>
-          <a href="#">Home</a> | <a href="#">Profile</a>
+          <Link to="/pokemon">Home</Link> | <Link to="/profile">Profile</Link>
         </nav>
         <Profile />
       </header>
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }
