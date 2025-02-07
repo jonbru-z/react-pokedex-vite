@@ -1,3 +1,7 @@
 .output {
   margin-left: var(--poke-spacing-2);
 }
+
+.inputError {
+  border: 2px solid darkred;
+}
