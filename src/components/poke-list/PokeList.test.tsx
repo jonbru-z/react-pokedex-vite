@@ -7,7 +7,7 @@ describe("PokeList", () => {
   it("Should render three list elements", () => {
     render(
       <MemoryRouter>
-        <PokeList pokemons={[{ name: "a" }, { name: "b" }, { name: "a" }]} />
+        <PokeList pokemons={[{ name: "a" }, { name: "b" }, { name: "c" }]} />
       </MemoryRouter>
     );
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
