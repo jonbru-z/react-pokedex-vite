@@ -3,7 +3,7 @@ import styles from "./Layout.module.scss";
 import { useUserContext } from "../../state/UserContext";
 import { VisitCounter } from "./VisitCounter";
 
-export function Layout() {
+function Layout() {
   const { username } = useUserContext();
   return (
     <div className={styles.root}>
@@ -20,3 +20,5 @@ export function Layout() {
     </div>
   );
 }
+
+export default Layout;

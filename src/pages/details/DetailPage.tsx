@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
 import { fetcher } from "../../api/fetcher";
-import { PokemonDetailDto } from "../../api/pokeApi";
+import { type PokemonDetailDto } from "../../api/pokeApi";
 import { useEffect } from "react";
 import { usePokeVisitContext } from "../../state/PokeVisitContext";
+import {type Route} from "../../../.react-router/types/src/pages/details/+types/DetailPage";
 
-function DetailPage() {
-  const { pokemonName } = useParams<"pokemonName">();
+
+function DetailPage({params}: Route.ComponentProps) {
+  const { pokemonName } = params
   const uri = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
 
   const { data, isLoading, isError } = useQuery({
@@ -17,11 +18,10 @@ function DetailPage() {
   const { dispatch } = usePokeVisitContext();
 
   useEffect(() => {
-    pokemonName &&
-      dispatch({
-        type: "add",
-        value: pokemonName,
-      });
+    dispatch({
+      type: "add",
+      value: pokemonName,
+    });
   }, [dispatch, pokemonName]);
 
   if (isLoading) return <div>LOADING</div>;
@@ -35,4 +35,4 @@ function DetailPage() {
   );
 }
 
-export { DetailPage };
+export default DetailPage;

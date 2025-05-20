@@ -4,7 +4,9 @@ export function useWindowPaste(onPasted: (value: string) => void) {
   const hanndlePaste = useCallback(
     (event: ClipboardEvent) => {
       const value = event.clipboardData?.getData("Text");
-      value && onPasted(value);
+      if(value){
+          onPasted(value);
+      }
     },
     [onPasted]
   );

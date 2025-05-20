@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import styles from "./Profile.module.scss";
 import { useWindowPaste } from "./useWindowPaste";
 import { useUserContext } from "../../state/UserContext";

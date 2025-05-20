@@ -4,4 +4,4 @@ function ProfilePage() {
   return <Profile />;
 }
 
-export { ProfilePage };
+export default ProfilePage;

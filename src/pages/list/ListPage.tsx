@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetcher } from "../../api/fetcher";
-import { PokemonListDto } from "../../api/pokeApi";
+import { type PokemonListDto } from "../../api/pokeApi";
 import { PokeList } from "../../components/poke-list/PokeList";
 
 function ListPage() {
@@ -13,4 +13,4 @@ function ListPage() {
   return <PokeList pokemons={data?.results ?? []} />;
 }
 
-export { ListPage };
+export default ListPage;
