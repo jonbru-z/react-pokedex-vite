@@ -48,3 +48,21 @@ export default tseslint.config({
   },
 })
 ```
+
+## Server-side data fetching with React Router 7
+
+The `src/ssr` folder demonstrates how to load data on the server using React Router 7.
+Routes in `src/ssr/routes.tsx` use `loader` functions that fetch data from the PokéAPI.
+`src/ssr/server.tsx` creates a small Node server which renders the router on the server
+via `createStaticHandler`, `createStaticRouter` and `<StaticRouterProvider>`.
+Example pages `ListSsrPage` and `DetailSsrPage` consume the loaded data using
+`useLoaderData`.
+
+To run this example you need Node 18+ with native `fetch` available. Start the server
+with:
+
+```bash
+node src/ssr/server.tsx
+```
+
+Then open http://localhost:5173/pokemon in your browser to see the server rendered output.
