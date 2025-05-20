@@ -1,4 +1,5 @@
 import {
+    isRouteErrorResponse,
     Links,
     Meta,
     Outlet,
@@ -10,6 +11,7 @@ import {usePokeVisit} from "./hooks/usePokeVisit/usePokeVisit";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {PokeVisitContext} from "./state/PokeVisitContext";
 import {UserContext} from "./state/UserContext";
+import type { Route } from "./+types/root";
 
 const queryClient = new QueryClient();
 
@@ -53,4 +55,28 @@ export default function Root() {
             </QueryClientProvider>
         </UserContext.Provider>
     </PokeVisitContext.Provider>;
+}
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+    if (isRouteErrorResponse(error)) {
+        return (
+            <>
+                <h1>
+                    {error.status} {error.statusText}
+                </h1>
+                <p>{error.data}</p>
+            </>
+        );
+    } else if (error instanceof Error) {
+        return (
+            <div>
+                <h1>Error</h1>
+                <p>{error.message}</p>
+                <p>The stack trace is:</p>
+                <pre>{error.stack}</pre>
+            </div>
+        );
+    } else {
+        return <h1>Unknown Error</h1>;
+    }
 }
