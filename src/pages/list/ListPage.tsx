@@ -1,16 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
 import { fetcher } from "../../api/fetcher";
-import { PokemonListDto } from "../../api/pokeApi";
+import { type PokemonListDto } from "../../api/pokeApi";
 import { PokeList } from "../../components/poke-list/PokeList";
+import {type Route} from "../../../.react-router/types/src/pages/list/+types/ListPage";
 
-function ListPage() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["pokemonList"],
-    queryFn: () => fetcher<PokemonListDto>("https://pokeapi.co/api/v2/pokemon"),
-  });
-  if (isLoading) return <div>LOADING</div>;
-  if (isError) return <div>ERROR while loading data</div>;
-  return <PokeList pokemons={data?.results ?? []} />;
+export async function loader(){
+  return fetcher<PokemonListDto>("https://pokeapi.co/api/v2/pokemon");
 }
 
-export { ListPage };
+function ListPage({loaderData: data}: Route.ComponentProps) {
+  return <PokeList pokemons={data.results} />;
+}
+
+export default ListPage;

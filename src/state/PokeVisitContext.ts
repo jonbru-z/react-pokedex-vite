@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { PokeVisitAction, PokeVisitState } from "../hooks/usePokeVisit/types";
+import { type PokeVisitAction, type PokeVisitState } from "../hooks/usePokeVisit/types";
 
 type PokeVisitContextValue = {
   state: PokeVisitState;

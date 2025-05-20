@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { PokeVisitState, PokeVisitAction } from "./types";
+import { type PokeVisitState, type PokeVisitAction } from "./types";
 
 export const initialState: PokeVisitState = [];
 

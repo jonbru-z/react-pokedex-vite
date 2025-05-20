@@ -1,31 +1,29 @@
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
 import { fetcher } from "../../api/fetcher";
-import { PokemonDetailDto } from "../../api/pokeApi";
+import { type PokemonDetailDto } from "../../api/pokeApi";
 import { useEffect } from "react";
 import { usePokeVisitContext } from "../../state/PokeVisitContext";
+import {type Route} from "../../../.react-router/types/src/pages/details/+types/DetailPage";
+import {data} from "react-router";
 
-function DetailPage() {
-  const { pokemonName } = useParams<"pokemonName">();
+export async function loader({params}: Route.ComponentProps) {
+  const { pokemonName } = params
   const uri = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
+  try{
+  return fetcher<PokemonDetailDto>(uri);
+  }catch {
+    throw data("Pokemon Not Found", { status: 404 });
+  }
+}
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["pokemon", "detail", pokemonName],
-    queryFn: () => fetcher<PokemonDetailDto>(uri),
-  });
-
+function DetailPage({loaderData: data, params: {pokemonName}}: Route.ComponentProps) {
   const { dispatch } = usePokeVisitContext();
 
   useEffect(() => {
-    pokemonName &&
-      dispatch({
-        type: "add",
-        value: pokemonName,
-      });
+    dispatch({
+      type: "add",
+      value: pokemonName,
+    });
   }, [dispatch, pokemonName]);
-
-  if (isLoading) return <div>LOADING</div>;
-  if (isError) return <div>ERROR while loading data</div>;
 
   return (
     <div>
@@ -35,4 +33,4 @@ function DetailPage() {
   );
 }
 
-export { DetailPage };
+export default DetailPage;
